@@ -12,6 +12,7 @@ const signUp = async (formData: FormData) => {
         data: {
           email: validatedData.email.toLocaleLowerCase(),
           password: validatedData.password,
+          role: "ADMIN",
         },
       });
     },
