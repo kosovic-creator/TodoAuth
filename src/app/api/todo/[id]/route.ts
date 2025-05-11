@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import db  from '@/lib/db/db';
+import {db}  from '@/lib/db/db';
 
 export async function PATCH(request: NextRequest) {
   const url = new URL(request.url);

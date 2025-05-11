@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import db from '@/lib/db/db';
+import {db} from '@/lib/db/db';
 
 export async function GET() {
   const todos = await db.todo.findMany({ orderBy: { createdAt: 'desc' } });
