@@ -9,18 +9,6 @@ import Credentials from "next-auth/providers/credentials";
 import GitHub from "next-auth/providers/github";
 import { schema } from "@/lib/schema";
 
-// Extend the User type to include the role property
-// declare module "next-auth" {
-//   interface User {
-//     role?: string;
-//   }
-//   interface Session {
-//     user?: {
-//       role?: string;
-//     };
-//   }
-// }
-
 const adapter = PrismaAdapter(db);
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
