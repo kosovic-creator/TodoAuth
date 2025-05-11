@@ -5,13 +5,15 @@ import { executeAction } from "@/lib/executeAction";
 const signUp = async (formData: FormData) => {
   return executeAction({
     actionFn: async () => {
+      const name = formData.get("name");
       const email = formData.get("email");
       const password = formData.get("password");
-      const validatedData = schema.parse({ email, password });
+      const validatedData = schema.parse({ email, password,name });
       await db.user.create({
         data: {
           email: validatedData.email.toLocaleLowerCase(),
           password: validatedData.password,
+          name: validatedData.name,
           role: "ADMIN",
         },
       });

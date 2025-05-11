@@ -31,6 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       credentials: {
         email: {},
         password: {},
+        name: {},
       },
       authorize: async (credentials) => {
         const validatedCredentials = schema.parse(credentials);
@@ -39,6 +40,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           where: {
             email: validatedCredentials.email,
             password: validatedCredentials.password,
+            name: validatedCredentials.name,
           },
         });
 

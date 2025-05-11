@@ -10,7 +10,7 @@ const SignOut = () => {
 
   return (
     <div >
-      <Link href="#" onClick={(e) => { e.preventDefault(); handleSignOut(); }}>
+      <Link href="/" onClick={(e) => { e.preventDefault(); handleSignOut(); }}>
         Odjavi se
       </Link>
     </div>
