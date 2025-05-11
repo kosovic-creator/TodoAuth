@@ -5,14 +5,19 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-const { id } = await params; // <--- OBAVEZNO
+  const { id } = await params;
 
-  
+  let body;
+  try {
+    body = await request.json();
+  } catch (e) {
+    return NextResponse.json({ error: "Nevalidan JSON u telu zahteva." }, { status: 400 });
+  }
 
-  const { name, email, password, role } = await request.json();
+  const { name, email, password, role } = body;
 
   const user = await db.user.update({
-    where: { id: id.toString() },
+    where: { id: id }, // koristi string ili broj prema modelu
     data: { name, email, password, role },
   });
 
