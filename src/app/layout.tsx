@@ -32,7 +32,7 @@ const Layout = ({ children }: LayoutProps) => {
         <Nav />
         <main >
           <div >
-          <SessionProvider session={null}>
+          <SessionProvider >
           {children}
         </SessionProvider>
           </div>

@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { encode as defaultEncode } from "next-auth/jwt";
+import { Session } from "next-auth";
 
 import {db} from "@/lib/db/db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -9,16 +10,16 @@ import GitHub from "next-auth/providers/github";
 import { schema } from "@/lib/schema";
 
 // Extend the User type to include the role property
-declare module "next-auth" {
-  interface User {
-    role?: string;
-  }
-  interface Session {
-    user: {
-      role?: string;
-    };
-  }
-}
+// declare module "next-auth" {
+//   interface User {
+//     role?: string;
+//   }
+//   interface Session {
+//     user?: {
+//       role?: string;
+//     };
+//   }
+// }
 
 const adapter = PrismaAdapter(db);
 
@@ -57,15 +58,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // Dodajemo role u token kada postoji user (znači na login)
       if (user) {
         token.role = user.role;
+        token.name = user.name;
+        token.email = user.email;
+        token.image = user.image;
+
       }
       return token;
     },
+
     // Dodaj i session callback da bi role bio dostupan na frontendu
     async session({ session, token }) {
       if (token?.role && typeof token.role === "string") {
         session.user.role = token.role;
       }
-      return session;
+
+      return session as Session;
     },
   },
 
