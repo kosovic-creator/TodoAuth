@@ -8,8 +8,8 @@ import { useRouter } from 'next/navigation';
 import TodoUpdateSchema  from '@/types/todo_update';
 import { Input } from "@/components/ui/input";
 
-
-export default function UpdatePage({ params }: { params: Promise<{ id: string }> }) {
+import { useParams } from 'next/navigation';
+export default function UpdatePage() {
     const [id, setId] = useState<string | null>(null);
     const [title, setTitle] = useState('');
     const [details, seDetails] = useState('');
@@ -20,14 +20,17 @@ export default function UpdatePage({ params }: { params: Promise<{ id: string }>
     const router = useRouter();
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-    useEffect(() => {
-        async function resolveParams() {
-            const resolved = await params;
-            setId(resolved.id);
-        }
-        resolveParams();
-    }, [params]);
 
+    const params = useParams();
+    const idd = params?.id;
+
+    useEffect(() => {
+        if (typeof idd === 'string') {
+            setId(idd);
+        } else {
+            setId(null); // Handle the case where idd is not a string
+        }
+    }, [idd]);
     useEffect(() => {
         const fetchTodo = async () => {
             try {
