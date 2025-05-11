@@ -10,7 +10,7 @@ export async function PATCH(
   let body;
   try {
     body = await request.json();
-  } catch (e) {
+  } catch {
     return NextResponse.json({ error: "Nevalidan JSON u telu zahteva." }, { status: 400 });
   }
 
