@@ -38,7 +38,9 @@ const Page = async () => {
               await signIn("credentials", formData);
             },
           });
+          redirect('/todo');
         }}
+
       >
         <Input
           name="email"
