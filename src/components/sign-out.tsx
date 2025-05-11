@@ -1,6 +1,7 @@
 "use client";
-import { Button } from "@/components/ui/button";
+
 import { signOut } from "next-auth/react";
+import Link from "next/link"; // Import Link from next/link
 
 const SignOut = () => {
   const handleSignOut = async () => {
@@ -8,10 +9,10 @@ const SignOut = () => {
   };
 
   return (
-    <div className="flex justify-center">
-      <Button variant="destructive" onClick={handleSignOut}>
-        Sign Out
-      </Button>
+    <div >
+      <Link href="#" onClick={(e) => { e.preventDefault(); handleSignOut(); }}>
+        Odjavi se
+      </Link>
     </div>
   );
 };
