@@ -18,8 +18,8 @@ export default async function Nav() {
 
                 {session ? (
                     <>
-                        <p className=" p-1 pl-3">Prijavili  ste se kao: {session.user?.name || "Unknown"}</p>
-                        <div className="absolute right-0 p-1">
+                        <p className=" p-4 pl-3">Prijavili  ste se kao: {session.user?.name || "Unknown"}</p>
+                        <div className="absolute right-0 p-4">
                             <SignOut />
                         </div>
                     </>
