@@ -72,7 +72,7 @@ const filteredTodos = session
     <>
 
       <div className='  mx-auto p-0 w-full'>
-        <div className='text-gray-500 p-0 flex justify-between items-center w-full'>
+        <div >
           <div className="flex items-center relative w-full">
             <span className="absolute inset-y-0 left-0 flex items-center pl-3">
               <Search className="h-4 w-4 text-gray-400" />
@@ -90,7 +90,7 @@ const filteredTodos = session
           </div>
         </div>
         <table className="table-auto w-full border-collapse border border-gray-300 mt-4">
-  <thead className="bg-black text-white font-thin">
+  <thead className="bg-gray-600 text-white font-thin">
             <tr className='border-b border-gray-300 text-white'>
               <th className='p-3 text-center'>Naslov</th>
               <th className='p-3 text-center'>Detalji</th>
