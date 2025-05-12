@@ -98,7 +98,7 @@ export default function TodoTable() {
                   <td>
 
                     <div className="flex gap-2 flex-row-reverse w-full">
-                      <Link href={`/users/${user.id}`} >
+                      <Link href={`/admin/users/${user.id}`} >
                         <button className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 transition">Pregled</button>
                       </Link>
                     </div>
@@ -128,7 +128,7 @@ export default function TodoTable() {
         </div>
       </div>
       <footer className="flex justify-center items-center p-4 bg-gray-100">
-       
+
       </footer>
 
     </>

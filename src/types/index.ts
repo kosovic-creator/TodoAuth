@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 
 import { z } from 'zod';
@@ -8,8 +9,19 @@ const TodoSchema = z.object({
   details: z.string().min(5, 'Detalji moraju imati najmanje 5 karaktera'),
   korisnik: z.string().min(1, 'Korisnik je obavezan'),
 });
-
+// const UsersSchema = z.object({
+//   name: z.string().min(1, 'Ime  je obavezano'),
+//   email: z.string().min(1, 'Email je obavezo polje'),
+//   password: z.string().min(3, 'Pasword moraj imati najmanje 5 karaktera'),
+//   role: z.string().min(1, 'Role je obavezan'),
+// });
 export default TodoSchema;
+
+
+
+
+
+
 
 // type Todo = {
 //   id: string;

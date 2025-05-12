@@ -20,6 +20,7 @@ export default async function Nav() {
                 {session ? (
                     <>
                     <Link href="/admin/users" className="p-4 pl-3">Korisnici</Link>
+                    <Link href="/admin/users/add" className="p-4 pl-3">Add</Link>
                         <p className=" p-4 pl-3">Prijavili  ste se kao: {session.user?.name || "Unknown"}</p>
                         <div className="absolute right-0 p-4">
                             <SignOut />
