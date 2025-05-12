@@ -72,7 +72,7 @@ export default function AddTodoForm() {
     <>
 
       <form onSubmit={handleSubmit} className=" w-full max-w-md mx-auto p-4 bg-white  border-gray-100 rounded">
-        <h1 className="text-2xl font-bold-3 p-6 text-center">Dodaj Napomenu</h1>
+        <h1 className="text-2xl font-bold-3 p-6 text-center">Dodaj Korisnika</h1>
 
         <div>
           <Label htmlFor="ime" className="block font-medium p-2 border-gray-100">Ime</Label>

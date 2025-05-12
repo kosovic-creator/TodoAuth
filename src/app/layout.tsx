@@ -29,9 +29,11 @@ const Layout = ({ children }: LayoutProps) => {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Nav />
+
         <main >
+
           <div >
+          <Nav />
           <SessionProvider >
           {children}
         </SessionProvider>

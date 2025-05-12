@@ -11,7 +11,7 @@ const SignOut = () => {
   };
 const router = useRouter();
   return (
-    <div>
+    <div >
       <Link href="" onClick={(e) => { e.preventDefault(); handleSignOut(); }}>
         Odjavi se
       </Link>
