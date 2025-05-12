@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 const SignOut = () => {
   const handleSignOut = async () => {
     await signOut();
-    router.push('/'); // Redirect to the home page after signing out
+    router.push('/sign-in'); // Redirect to the home page after signing out
   };
 const router = useRouter();
   return (

@@ -2,7 +2,7 @@
 
 export type Users = {
     id: number;
-    name: string;
+    // name: string;
     email: string;
     password: string;
     role?: string;

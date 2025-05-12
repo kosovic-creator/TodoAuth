@@ -1,4 +1,5 @@
 
+import { SignOut } from "@/components/sign-out";
 import { auth } from "@/lib/auth";
 
 type Session = {
@@ -9,6 +10,7 @@ type Session = {
 };
 import { redirect } from "next/navigation";
 import TodoTable from "./todo/page";
+// import TodoTable from "./todo/page";
 
 const Page = async () => {
   const session = (await auth()) as Session | null;
@@ -23,7 +25,7 @@ const Page = async () => {
     <>
       <TodoTable/>
 
-      {/* <SignOut /> */}
+      <SignOut />
     </>
   );
 };
