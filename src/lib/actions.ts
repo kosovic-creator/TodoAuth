@@ -13,7 +13,7 @@ const signUp = async (formData: FormData) => {
         data: {
           email: validatedData.email.toLocaleLowerCase(),
           password: validatedData.password,
-          name: validatedData.name,
+         
           role: "USER",
         },
       });

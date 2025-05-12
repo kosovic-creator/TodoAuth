@@ -39,7 +39,7 @@ export default function TodoTable() {
   }
   const filteredUsers =
     users.filter(user =>
-      user.name.toLowerCase().includes(filter.toLowerCase())
+      user.email.toLowerCase().includes(filter.toLowerCase())
     );
 
 
@@ -90,7 +90,7 @@ export default function TodoTable() {
             ) : (
               currentUsers.map(user => (
                 <tr key={user.id}>
-                  <td className='p-2 text-center'>{user.name}</td>
+                  
                   <td className='p-2 text-center'>{user.email}</td>
 
                   <td className='text-center'>{user.password}</td>

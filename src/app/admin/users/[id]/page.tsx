@@ -25,29 +25,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     resolveParams();
   }, [params]);
 
-  // useEffect(() => {
-  //   const fetchUsers = async () => {
-  //     try {
-  //       const response = await fetch(`/api/users/${id}`, {
-  //         method: "GET",
-  //       });
 
-  //       if (!response.ok) {
-  //         const errorData = await response.json();
-  //         setError(errorData.message || "Greška pri učitavanju podataka.");
-  //         return;
-  //       }
-
-  //       const data = await response.json();
-  //       setUsers(data);
-  //     } catch (err) {
-  //       setError("An unexpected error occurred.");
-  //       console.error(err);
-  //     }
-  //   }
-
-  //   fetchUsers();
-  // },  [id]);
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -124,10 +102,10 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
           {users && (
             <div className="flex-col text-left p-2 ">
               <h1 className="text-2xl font-bold-1 p-2 text-left">Detalji Korisnika</h1>
-              <p className="p-3" ><>Zadatak:</> {users.name}</p>
-              <p className="p-3"><>Prioritet:</> {users.email}</p>
-              <p className="p-3"><>Završeno:</> {users.password ? "Da" : "Ne"}</p>
-              <p className="p-3"><>Detalji:</> {users.role || "N/A"}</p>
+              {/* <p className="p-3" ><>Zadatak:</> {users.name}</p> */}
+              <p className="p-3"><>Email:</> {users.email}</p>
+              <p className="p-3"><>ZPassword:</> {users.password ? "Da" : "Ne"}</p>
+              <p className="p-3"><>Role:</> {users.role || "N/A"}</p>
 
               <div className="flex gap-3 mt-7 w-full">
                 <Link href="/todo">
@@ -149,7 +127,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
           onClose={closeDeleteConfirmModal}
           onConfirm={() => deleteTodo(String(selectedItemId!))}
           itemId={selectedItemId!}
-          title={users?.name} // <-- OVO JE KLJUČNO
+          title={users?.email} // <-- OVO JE KLJUČNO
         />
         {toast && (
           <div

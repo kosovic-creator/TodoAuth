@@ -23,7 +23,7 @@ export default function AddTodoForm() {
 
   useEffect(() => {
     if (session?.user?.name) {
-      setKorisnik(session.user.name);
+      setKorisnik(session.user.email || '');
 
     }
   }, [session]);

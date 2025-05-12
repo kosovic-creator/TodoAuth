@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { NextRequest, NextResponse } from 'next/server';
 import {db} from '@/lib/db/db';
 
@@ -9,13 +9,13 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, password, role } = await request.json();
+    const {  email, password, role } = await request.json();
 
 
 
     const newTodo = await db.user.create({
       data: {
-        name,
+
         email,
         password,
         role,
