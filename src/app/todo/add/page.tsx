@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import TodoSchema  from '@/types/index';
 import { Label } from "@/components/ui/label";
+import Toast from '@/components/ui/Toast';
 
 export default function AddTodoForm() {
   const [title, setTitle] = useState('');
@@ -50,12 +51,12 @@ export default function AddTodoForm() {
         body: JSON.stringify(result.data), // Use validated data
       });
       if (response.ok) {
-        setSuccess('Napomena uspješno dodata!');
+        // setSuccess('Napomena uspješno dodata!');
         setTitle('');
         setPriority('');
         setDetails('');
         setKorisnik('');
-        showToast('Napomena je uspešno obrisana!');
+        showToast('Napomena je uspešno obrisan!');
         setTimeout(() => router.push('/todo'), 1000);
       } else {
         const errorData = await response.json();
@@ -66,76 +67,62 @@ export default function AddTodoForm() {
     }
   };
   return (
-<>
-    <form onSubmit={handleSubmit} className=" w-full max-w-md mx-auto p-4 bg-white  border-gray-100 rounded">
-      <h1 className="text-2xl font-bold-3 p-6 text-center">Dodaj Napomenu</h1>
-      <div>
-        <Label htmlFor="title" className="block font-medium p-2 border-gray-100">Zadatak</Label>
-        <Input
-          id="title"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="border rounded p-2 w-full form-control form-control-lg"
-          placeholder="Unesite naziv napomene"
-        />
-      </div>
-      <div>
-        <Label htmlFor="priority" className="block font-medium p-2  border-gray-100">Prioritet</Label>
-        <Input
-          id="priority"
-          type="number"
-          value={priority}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setPriority(Number(e.target.value));
-          }}
-          className="border rounded p-2 w-full"
-          placeholder="Unesite prioritet (1-5)"
-          min={1}
-          max={5}
-        />
-      </div>
-      <div>
-        <Label htmlFor="details" className="block font-medium p-2  border-gray-100">Detalji</Label>
-        <Textarea
-          id="details"
-          value={details}
-          onChange={(e) => setDetails(e.target.value)}
-          className="border rounded p-2 w-full"
-          placeholder="Unesite detalje napomene"
-          rows={4}
-          maxLength={200} // Optional: Limit the number of characters
-          minLength={3} // Optional: Minimum length for the details
-        />
-      </div>
-      <Button
-        type="submit"
-        className="w-full bg-black text-white py-2 rounded-md hover:bg-black-700"
-      // onClick={()=>setKorisnik(session?.user.name || '')}
-      >
-        Dodaj Napomenu
-      </Button>
+    <>
+      <form onSubmit={handleSubmit} className=" w-full max-w-md mx-auto p-4 bg-white  border-gray-100 rounded">
+        <h1 className="text-2xl font-bold-3 p-6 text-center">Dodaj Napomenu</h1>
+        <div>
+          <Label htmlFor="title" className="block font-medium p-2 border-gray-100">Zadatak</Label>
+          <Input
+            id="title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="border rounded p-2 w-full form-control form-control-lg"
+            placeholder="Unesite naziv napomene"
+          />
+        </div>
+        <div>
+          <Label htmlFor="priority" className="block font-medium p-2  border-gray-100">Prioritet</Label>
+          <Input
+            id="priority"
+            type="number"
+            value={priority}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setPriority(Number(e.target.value));
+            }}
+            className="border rounded p-2 w-full"
+            placeholder="Unesite prioritet (1-5)"
+            min={1}
+            max={5}
+          />
+        </div>
+        <div>
+          <Label htmlFor="details" className="block font-medium p-2  border-gray-100">Detalji</Label>
+          <Textarea
+            id="details"
+            value={details}
+            onChange={(e) => setDetails(e.target.value)}
+            className="border rounded p-2 w-full"
+            placeholder="Unesite detalje napomene"
+            rows={4}
+            maxLength={200} // Optional: Limit the number of characters
+            minLength={3} // Optional: Minimum length for the details
+          />
+        </div>
+        <Button
+          type="submit"
+          className="w-full bg-black text-white py-2 rounded-md hover:bg-black-700"
+        // onClick={()=>setKorisnik(session?.user.name || '')}
+        >
+          Dodaj Napomenu
+        </Button>
 
-      {error && <p className="text-red-500">{error}</p>}
-      {success && <p className="text-green-500">{success}</p>}
-    </form>
-    <div
+        {error && <p className="text-red-500">{error}</p>}
+        {success && <p className="text-green-500">{success}</p>}
+      </form>
 
-  style={{
-    position: 'fixed',
-    top: 60,
-    right: 20,
-    background: 'white',
-    color: 'black',
-    padding: '12px 24px',
-    borderRadius: 6,
-    boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-    zIndex: 9999,
-  }}
->
-  {toast}
-</div>
-
-</>
+      {/* Koristite Toast komponentu */}
+      <Toast message={toast} />
+    </>
   );
 }

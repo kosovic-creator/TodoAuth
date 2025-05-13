@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from 'next/navigation';
 import TodoUpdateSchema  from '@/types/todo_update';
 import { Input } from "@/components/ui/input";
-
+import Toast from '@/components/ui/Toast';
 import { useParams } from 'next/navigation';
 export default function UpdatePage() {
     const [id, setId] = useState<string | null>(null);
@@ -86,7 +86,7 @@ export default function UpdatePage() {
 
             if (response.ok) {
                 const updatedTodo = await response.json();
-                setMessage('Izmena je uspešno dodata!');
+                // setMessage('Izmena je uspešno dodata!');
                 showToast('Napomena je uspešno izmjenjena!');
                 console.log('Updated Todo:', updatedTodo);
                 setTimeout(() => router.push('/todo'), 2000);
@@ -152,37 +152,14 @@ export default function UpdatePage() {
                     />
                 </div>
 
-               {/* {message && (
-                    <p className={`
-                        ${message.includes('Izmena je uspešno dodata') ? 'text-green-500' : 'text-red-500'}
-                        mb-4 text-sm font-medium
-                    `}>
-                        {message}
-                    </p>
-                )} */}
                 <Button type="submit" className="w-full bg-black text-white py-2 rounded-md hover:bg-black-700">
                     Izmjeni
                 </Button>
                {error && <p className="text-red-500 mt-2">{error}</p>}
                 {success && <p className="text-green-500 mt-2">{success}</p>}
             </form>
-    {toast && (
-<div
-  style={{
-    position: 'fixed',
-    top: 60,
-    right: 20,
-    background: 'white',
-    color: 'black',
-    padding: '12px 24px',
-    borderRadius: 6,
-    boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-    zIndex: 9999,
-  }}
->
-  {toast}
-</div>
-    )}
+
+            <Toast message={toast} />
 </div>
 );
 }
