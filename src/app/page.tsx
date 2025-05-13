@@ -13,21 +13,25 @@ import { redirect } from "next/navigation";
 import TodoTable from "./todo/page";
 
 
+
 const Page = async () => {
   const session = (await auth()) as Session | null;
-  if (!session) {
-    redirect("/sign-in");
+  // if (!session) {
+  //   redirect("/sign-in");
 
+  // }
+  // if (session?.user?.role === "ADMIN") {
+  //   console.log("User is an admin");
+  // }
+  if (session) {
+    redirect("/todo");
+  } else {
+    redirect("/sign-in");
   }
-  if (session?.user?.role === "ADMIN") {
-    console.log("User is an admin");
-  }
+
   return (
     <>
-<TodoTable />
-     
-
-
+      {/* <TodoTable /> */}
     </>
   );
 };

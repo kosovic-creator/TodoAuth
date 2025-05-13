@@ -8,6 +8,7 @@ const SignOut = () => {
   const handleSignOut = async () => {
     await signOut();
     router.push('/sign-in'); // Redirect to the home page after signing out
+    router.refresh(); // Refresh the page to update the UI
   };
 const router = useRouter();
   return (

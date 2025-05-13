@@ -8,6 +8,7 @@ import Credentials from "next-auth/providers/credentials";
 import GitHub from "next-auth/providers/github";
 import  schema  from "@/types/usersSchema";
 
+
 // Extend the User type to include the role property
 declare module "next-auth" {
   interface User {
@@ -42,8 +43,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             email: validatedCredentials.email,
             password: validatedCredentials.password,
           },
-        });
 
+        }
+
+      );
+      // redirect("/todo");
         if (!user) {
           throw new Error("Invalid credentials.");
         }

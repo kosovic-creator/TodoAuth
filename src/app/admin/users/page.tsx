@@ -39,7 +39,7 @@ export default function TodoTable() {
   }
   const filteredUsers =
     users.filter(user =>
-      user.email.toLowerCase().includes(filter.toLowerCase())
+      user.email.includes(filter)
     );
 
 

@@ -54,14 +54,17 @@ const Page = async () => {
           required
           autoComplete="current-password"
         />
-        <Button className="w-full bg-black text-white" type="submit">
-          Sign In
-        </Button>
+
+          <Button className="w-full bg-black text-white" type="submit" >
+            Prijavi se
+
+          </Button>
+
       </form>
 
       <div className="text-center">
         <Button asChild variant="link">
-          <Link href="/sign-up">Don&apos;t have an account? Sign up</Link>
+          <Link href="/sign-up">Nemate nalog? Regisruj se</Link>
         </Button>
       </div>
     </div>

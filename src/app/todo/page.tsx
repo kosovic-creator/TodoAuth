@@ -46,7 +46,7 @@ export default function TodoTable() {
   };
   const filteredTodos = session
     ? todos.filter(todo =>
-      todo.korisnik.toLowerCase().includes((korisnik ?? '').toLowerCase()) && todo.korisnik.toLowerCase().includes(filter.toLowerCase())
+      todo.korisnik.includes((korisnik ?? '')) && todo.title.includes(filter)
     )
     : [];
 
@@ -61,8 +61,6 @@ export default function TodoTable() {
 
   return (
     <>
-
-
       <div className="flex justify-end items-center p-4">
         <div className="relative w-64">
           <span className="absolute inset-y-0 left-0 flex items-center pl-3">
