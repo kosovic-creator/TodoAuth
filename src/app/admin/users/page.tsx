@@ -53,32 +53,33 @@ export default function TodoTable() {
   return (
     <>
 
-      <div className='  mx-auto p-0 w-full'>
-        <div className='text-gray-500 p-0 flex justify-between items-center w-full'>
-          <div className="flex items-center relative w-full">
-            <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-              <Search className="h-4 w-4 text-gray-400" />
-            </span>
-            <Input
-              type="search"
-              placeholder="Pretraga..."
-              className="pl-10"
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-            />
+
+        <div className="flex justify-end items-center p-4">
+        <div className="relative w-64">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+            <Search className="w-5 h-5 text-gray-500" />
+          </span>
+          <Input
+            type="search"
+            placeholder="Pretraga..."
+            className="pl-10 w-full h-10 border border-gray-300 rounded-md"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+          />
+        </div>
             <Link href="/users/add" className='mr-0 p-3'>
               <button className="px-4 py-2 rounded bg-green-500 text-white hover:bg-green-600 transition p-4">Dodaj</button>
             </Link>
           </div>
-        </div>
+
         <table className="table-auto w-full border-collapse border border-gray-300 mt-4">
           <thead className="bg-black text-white font-thin">
             <tr className='border-b border-gray-300 text-white'>
-              <th className='p-3 text-center'>Ime</th>
+
               <th className='p-3 text-center'>Email</th>
 
               <th className="p-3 text-center">Password</th>
-              <th className="p-3 text-left">Role</th>
+              <th className="p-3 text-center">Role</th>
               <th></th>
             </tr>
           </thead>
@@ -90,7 +91,7 @@ export default function TodoTable() {
             ) : (
               currentUsers.map(user => (
                 <tr key={user.id}>
-                  
+
                   <td className='p-2 text-center'>{user.email}</td>
 
                   <td className='text-center'>{user.password}</td>
@@ -126,7 +127,7 @@ export default function TodoTable() {
             Sledeća
           </button>
         </div>
-      </div>
+
       <footer className="flex justify-center items-center p-4 bg-gray-100">
 
       </footer>

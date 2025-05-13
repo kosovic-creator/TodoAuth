@@ -1,4 +1,4 @@
-import { schema } from "@/lib/schema";
+import usersSchema from "@/types/usersSchema";
 import {db} from "@/lib/db/db";
 import { executeAction } from "@/lib/executeAction";
 
@@ -8,12 +8,12 @@ const signUp = async (formData: FormData) => {
       const name = formData.get("name");
       const email = formData.get("email");
       const password = formData.get("password");
-      const validatedData = schema.parse({ email, password,name });
+      const validatedData = usersSchema.parse({ email, password,name });
       await db.user.create({
         data: {
           email: validatedData.email.toLocaleLowerCase(),
           password: validatedData.password,
-         
+
           role: "USER",
         },
       });

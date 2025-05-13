@@ -62,87 +62,91 @@ export default function TodoTable() {
   return (
     <>
 
-        <div >
-        <div className="flex flex-col items-end p-4">
-    <span>
-      <Search />
-    </span>
-    <Input
-      type="search"
-      placeholder="Pretraga..."
-      className="pl-10 mt-2"
-      value={filter}
-      onChange={(e) => setFilter(e.target.value)}
-    />
 
-            <Link href="/todo/add" className='mr-0 p-3'>
-              <button className="px-4 py-2 rounded bg-green-500 text-white hover:bg-green-600 transition p-4">Dodaj</button>
-            </Link>
-  </div>
-
+      <div className="flex justify-end items-center p-4">
+        <div className="relative w-64">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+            <Search className="w-5 h-5 text-gray-500" />
+          </span>
+          <Input
+            type="search"
+            placeholder="Pretraga..."
+            className="pl-10 w-full h-10 border border-gray-300 rounded-md"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+          />
         </div>
-        <table className="table-auto w-full border-collapse border border-gray-300 mt-4">
-          <thead className="bg-gray-600 text-white font-thin">
-            <tr className='border-b border-gray-300 text-white'>
-              <th className='p-3 text-center'>Naslov</th>
-              <th className='p-3 text-center'>Detalji</th>
+        <Link href="/todo/add" className='mr-0 p-3'>
+          <button className="px-4 py-2 rounded bg-green-500 text-white hover:bg-green-600 transition p-4">Dodaj</button>
+        </Link>
+      </div>
 
-              <th className="p-3 text-center">Prioritet</th>
-              <th className="p-3 text-left">Završeno</th>
-              <th></th>
+
+
+
+
+      <table className="table-auto w-full border-collapse border border-gray-300 mt-4">
+        <thead className="bg-gray-600 text-white font-thin">
+          <tr className='border-b border-gray-300 text-white'>
+            <th className='p-3 text-center'>Naslov</th>
+            <th className='p-3 text-center'>Detalji</th>
+
+            <th className="p-3 text-center">Prioritet</th>
+            <th className="p-3 text-left">Završeno</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody className='text-sm text-gray-700 bg-white divide-y divide-gray-300'>
+          {currentTodos.length === 0 ? (
+            <tr>
+              <td colSpan={5} className="text-center"> <LoadingDots /> </td>
             </tr>
-          </thead>
-          <tbody className='text-sm text-gray-700 bg-white divide-y divide-gray-300'>
-            {currentTodos.length === 0 ? (
-              <tr>
-                <td colSpan={5} className="text-center"> <LoadingDots /> </td>
+          ) : (
+            currentTodos.map(todo => (
+              <tr key={todo.id}>
+                <td className='p-2 text-center'>{todo.title}</td>
+                <td className='p-2 text-center'>{todo.details}</td>
+
+                <td className='text-center'>{todo.priority}</td>
+                <td>
+                  <input
+                    className='ml-5'
+                    type="checkbox"
+                    checked={todo.done}
+                    onChange={() => updateTodo(String(todo.id), { done: !todo.done })}
+                  />
+                </td>
+                <td>
+
+                  <div className="flex gap-2 flex-row-reverse w-full">
+                    <Link href={`/todo/${todo.id}`} >
+                      <button className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 transition">Pregled</button>
+                    </Link>
+                  </div>
+                </td>
               </tr>
-            ) : (
-              currentTodos.map(todo => (
-                <tr key={todo.id}>
-                  <td className='p-2 text-center'>{todo.title}</td>
-                  <td className='p-2 text-center'>{todo.details}</td>
-
-                  <td className='text-center'>{todo.priority}</td>
-                  <td>
-                    <input
-                      className='ml-5'
-                      type="checkbox"
-                      checked={todo.done}
-                      onChange={() => updateTodo(String(todo.id), { done: !todo.done })}
-                    />
-                  </td>
-                  <td>
-
-                    <div className="flex gap-2 flex-row-reverse w-full">
-                      <Link href={`/todo/${todo.id}`} >
-                        <button className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 transition">Pregled</button>
-                      </Link>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-        {/* Pagination controls */}
-        <div className="flex justify-between items-center mt-4">
-          <button
-            className="px-4 py-2 rounded bg-gray-300 text-black hover:bg-gray-400 transition"
-            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            Prethodna
-          </button>
-          <span>Stranica {currentPage} od {totalPages}</span>
-          <button
-            className="px-4 py-2 rounded bg-gray-300 text-black hover:bg-gray-400 transition"
-            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
-          >
-            Sledeća
-          </button>
-        </div>
+            ))
+          )}
+        </tbody>
+      </table>
+      {/* Pagination controls */}
+      <div className="flex justify-between items-center mt-4">
+        <button
+          className="px-4 py-2 rounded bg-gray-300 text-black hover:bg-gray-400 transition"
+          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Prethodna
+        </button>
+        <span>Stranica {currentPage} od {totalPages}</span>
+        <button
+          className="px-4 py-2 rounded bg-gray-300 text-black hover:bg-gray-400 transition"
+          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        >
+          Sledeća
+        </button>
+      </div>
 
       <footer className="flex justify-center items-center p-4 bg-gray-100">
         <a>
