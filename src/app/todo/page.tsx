@@ -24,7 +24,8 @@ export default function TodoTable() {
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-const korisnik = (session?.user as { name?: string })?.name ?? '';
+const korisnik = (session?.user?.email ?? '').split('@')[0]; // Extract the username from the email
+  
   useEffect(() => {
     startTransition(() => {
       fetch('/api/todo')

@@ -19,7 +19,7 @@ const Nav = async () => {
           )} */}
           {session ? (
             <>
-              <p className=" p-1">korisnik: {session.user?.name ?? "Unknown"}</p>
+              <p className=" p-1">korisnik: {session.user?.email ?? "Unknown"}</p>
               <SignOut />
             </>
           ) : (
