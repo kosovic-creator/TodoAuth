@@ -4,7 +4,7 @@ import "@/app/globals.css";
 import { ReactNode } from "react";
 import Nav from "@/components/Nav";
 import { SessionProvider } from "next-auth/react";
-
+import { UserProvider } from "./context/UserContext";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -33,11 +33,12 @@ const Layout = ({ children }: LayoutProps) => {
         <main >
 
           <div >
-           
+           <UserProvider>
             <SessionProvider>
             <Nav />
               {children}
             </SessionProvider>
+           </UserProvider>
           </div>
         </main>
       </body>
