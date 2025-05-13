@@ -104,11 +104,11 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               <h1 className="text-2xl font-bold-1 p-2 text-left">Detalji Korisnika</h1>
               {/* <p className="p-3" ><>Zadatak:</> {users.name}</p> */}
               <p className="p-3"><>Email:</> {users.email}</p>
-              <p className="p-3"><>ZPassword:</> {users.password ? "Da" : "Ne"}</p>
+              <p className="p-3"><>Password:</> {users.password ? "Da" : "Ne"}</p>
               <p className="p-3"><>Role:</> {users.role || "N/A"}</p>
 
               <div className="flex gap-3 mt-7 w-full">
-                <Link href="/todo">
+                <Link href="/admin/users">
                   <button className="px-4 py-2 rounded bg-black text-white hover:bg-yellow-600 transition">
                     Nazad
                   </button>

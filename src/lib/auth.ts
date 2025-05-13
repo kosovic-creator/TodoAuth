@@ -6,7 +6,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GitHub from "next-auth/providers/github";
-import { schema } from "@/lib/schema";
+import  schema  from "@/types/usersSchema";
 
 // Extend the User type to include the role property
 declare module "next-auth" {

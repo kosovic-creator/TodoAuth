@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
 'use client';
 
 import { useSession } from "next-auth/react";
@@ -7,9 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import TodoSchema  from '@/types/index'; // Import your Zod schema from the appropriate file
+import TodoSchema  from '@/types/index';
 import { Label } from "@/components/ui/label";
-
 
 export default function AddTodoForm() {
   const [title, setTitle] = useState('');
@@ -24,24 +24,20 @@ export default function AddTodoForm() {
   useEffect(() => {
     if (session?.user?.email) {
       setKorisnik(session.user.email || '');
-
     }
   }, [session]);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setSuccess('');
-
     // Validate form data using Zod
     const result = TodoSchema.safeParse({ title, priority, details, korisnik });
 
     if (!result.success) {
-      // Map errors to display them
       const errorMessages = result.error.errors.map((err) => err.message).join(', ');
       setError(errorMessages);
       return;
     }
-
     try {
       const response = await fetch('/api/todo', {
         method: 'POST',
@@ -50,7 +46,6 @@ export default function AddTodoForm() {
         },
         body: JSON.stringify(result.data), // Use validated data
       });
-
       if (response.ok) {
         setSuccess('Napomena uspješno dodata!');
         setTitle('');
@@ -66,13 +61,10 @@ export default function AddTodoForm() {
       setError('Greška prilikom slanja podataka.');
     }
   };
-
   return (
 <>
-
     <form onSubmit={handleSubmit} className=" w-full max-w-md mx-auto p-4 bg-white  border-gray-100 rounded">
       <h1 className="text-2xl font-bold-3 p-6 text-center">Dodaj Napomenu</h1>
-
       <div>
         <Label htmlFor="title" className="block font-medium p-2 border-gray-100">Zadatak</Label>
         <Input
@@ -82,10 +74,8 @@ export default function AddTodoForm() {
           onChange={(e) => setTitle(e.target.value)}
           className="border rounded p-2 w-full form-control form-control-lg"
           placeholder="Unesite naziv napomene"
-
         />
       </div>
-
       <div>
         <Label htmlFor="priority" className="block font-medium p-2  border-gray-100">Prioritet</Label>
         <Input
@@ -94,7 +84,6 @@ export default function AddTodoForm() {
           value={priority}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setPriority(Number(e.target.value));
-
           }}
           className="border rounded p-2 w-full"
           placeholder="Unesite prioritet (1-5)"
@@ -102,8 +91,6 @@ export default function AddTodoForm() {
           max={5}
         />
       </div>
-
-
       <div>
         <Label htmlFor="details" className="block font-medium p-2  border-gray-100">Detalji</Label>
         <Textarea
@@ -114,12 +101,9 @@ export default function AddTodoForm() {
           placeholder="Unesite detalje napomene"
           rows={4}
           maxLength={200} // Optional: Limit the number of characters
-          minLength={5} // Optional: Minimum length for the details
-
+          minLength={3} // Optional: Minimum length for the details
         />
       </div>
-
-
       <Button
         type="submit"
         className="w-full bg-black text-white py-2 rounded-md hover:bg-black-700"

@@ -1,14 +1,9 @@
-//
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 'use client';
 
-
 import { useEffect, useState, useTransition } from 'react';
-
-
 import Link from 'next/link';
-
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import LoadingDots from '@/components/loading-dots';
@@ -24,7 +19,7 @@ export default function TodoTable() {
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-const korisnik = (session?.user?.email ?? '').split('@')[0]; // Extract the username from the email
+  const korisnik = (session?.user?.email ?? '').split('@')[0]; // Extract the username from the email
 
   useEffect(() => {
     startTransition(() => {
@@ -49,17 +44,11 @@ const korisnik = (session?.user?.email ?? '').split('@')[0]; // Extract the user
     setTodos(todos.map(t => (t.id === Number(id) ? updated : t)));
     showToast('Napomena je uspešno izmjenjena!');
   };
-
-
-const filteredTodos = session
-  ? todos.filter(todo =>
+  const filteredTodos = session
+    ? todos.filter(todo =>
       todo.korisnik.toLowerCase().includes((korisnik ?? '').toLowerCase()) && todo.title.toLowerCase().includes(filter.toLowerCase())
     )
-  : [];
-  // : todos.filter(todo =>
-  //     todo.title.toLowerCase().includes(filter.toLowerCase())
-  //   );
-
+    : [];
 
   // Pagination logic
   const totalPages = Math.ceil(filteredTodos.length / itemsPerPage);
@@ -72,7 +61,6 @@ const filteredTodos = session
 
   return (
     <>
-
       <div className='  mx-auto p-0 w-full'>
         <div >
           <div className="flex items-center relative w-full">
@@ -92,7 +80,7 @@ const filteredTodos = session
           </div>
         </div>
         <table className="table-auto w-full border-collapse border border-gray-300 mt-4">
-  <thead className="bg-gray-600 text-white font-thin">
+          <thead className="bg-gray-600 text-white font-thin">
             <tr className='border-b border-gray-300 text-white'>
               <th className='p-3 text-center'>Naslov</th>
               <th className='p-3 text-center'>Detalji</th>
@@ -108,10 +96,10 @@ const filteredTodos = session
                 <td colSpan={5} className="text-center"> <LoadingDots /> </td>
               </tr>
             ) : (
-                currentTodos.map(todo => (
-                  <tr key={todo.id}>
-                    <td className='p-2 text-center'>{todo.title}</td>
-                    <td className='p-2 text-center'>{todo.details}</td>
+              currentTodos.map(todo => (
+                <tr key={todo.id}>
+                  <td className='p-2 text-center'>{todo.title}</td>
+                  <td className='p-2 text-center'>{todo.details}</td>
 
                   <td className='text-center'>{todo.priority}</td>
                   <td>
@@ -155,10 +143,10 @@ const filteredTodos = session
         </div>
       </div>
       <footer className="flex justify-center items-center p-4 bg-gray-100">
-  <a>
-    Procenat završenih obaveza: {Math.round((brojKompletiranih / brojZapisa) * 100)}%
-  </a>
-</footer>
+        <a>
+          Procenat završenih obaveza: {Math.round((brojKompletiranih / brojZapisa) * 100)}%
+        </a>
+      </footer>
 
     </>
   );
