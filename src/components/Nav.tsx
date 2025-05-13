@@ -1,35 +1,43 @@
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
+'use client';
 
 import Link from "next/link";
 import { HomeIcon } from "lucide-react";
 import { SignOut } from "@/components/sign-out";
-import { auth } from "@/lib/auth";
+import Sidebar from "@/components/Sidebar";
+import { useSession } from "next-auth/react"; // OVO JE BITNO
 
+import { useState } from "react";
 
-const Nav = async () => {
-    const session = (await auth());
+const Nav = () => {
+    const { data: session, status } = useSession(); // OVO JE BITNO
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
     return (
         <header>
             <nav className="flex justify-between items-center w-full px-10 py-4 bg-black text-white">
-                <Link href="/"><HomeIcon /></Link>
-                {session ? <Link href="/todo">Podsjetnik</Link> : null}
+                <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-white focus:outline-none">
+                    ☰
+                </button>
+                {session ? <Link href="/todo"></Link> : null}
                 <div className="flex gap-10">
                     {session ? (
                         <>
                             <p className=" p-1">korisnik: {session.user?.email ?? "Unknown"}</p>
+                            <Sidebar open={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} session={session} />
 
-                            {session?.user?.role == "ADMIN" && (
-                                <Link href="/admin/users">Admin</Link>
-                            )}
-                            <SignOut />
                         </>
                     ) : (
-                        <p className=" p-1">Niste prijavljeni</p>
+                        // <p className=" p-1">Niste prijavljeni</p>
+                        < Link href="/sign-in">
+                                Prijavi se
+                        </Link>
                     )}
                 </div>
             </nav>
+            {session && <Sidebar open={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} session={session} />}
         </header>
-
     );
-}
+};
+
 export default Nav;

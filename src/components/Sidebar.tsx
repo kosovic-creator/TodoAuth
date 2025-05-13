@@ -6,6 +6,10 @@ import { SignOut } from "@/components/sign-out";
 interface SidebarProps {
     session: { user?: { role?: string } }; // Adjust this type based on your session object structure
 }
+interface SidebarProps {
+    open: boolean;
+    onClose: () => void;
+}
 
 const Sidebar: React.FC<SidebarProps> = ({ session }) => {
     const [isVisible, setIsVisible] = useState(false);
@@ -32,7 +36,8 @@ const Sidebar: React.FC<SidebarProps> = ({ session }) => {
                 className="fixed top-4 left-4 z-50 bg-gray-700 text-white p-2 rounded"
                 onClick={() => setIsVisible(!isVisible)}
             >
-                {isVisible ? "Close" : "Menu"}
+                {isVisible ? "" : "☰"}
+                {/* {isVisible ? "X" : ""} */}
             </button>
 
             {/* Sidebar */}
@@ -42,10 +47,11 @@ const Sidebar: React.FC<SidebarProps> = ({ session }) => {
                     isVisible ? "translate-x-0" : "-translate-x-full"
                 } transition-transform duration-300 ease-in-out`}
             >
-                <div className="mb-4">
-                    <h2 className="text-lg font-bold">Navigacija</h2>
-                </div>
-                <div className="flex flex-col gap-4">
+
+                <div className="flex flex-col gap-4 pt-4">
+                    <Link href="/todo" className="hover:underline">
+                        <h1 className="text-2xl font-bold">Todo</h1>
+                    </Link>
                     {session?.user?.role === "ADMIN" && (
                         <Link href="/admin/users" className="hover:underline">
                             Admin

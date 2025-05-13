@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { SignOut } from "@/components/sign-out";
 import { auth } from "@/lib/auth";
 
 type Session = {
@@ -9,6 +9,7 @@ type Session = {
   };
 };
 import { redirect } from "next/navigation";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import TodoTable from "./todo/page";
 
 
@@ -23,9 +24,10 @@ const Page = async () => {
   }
   return (
     <>
-      <TodoTable/>
+<TodoTable />
+     
 
-      <SignOut />
+
     </>
   );
 };

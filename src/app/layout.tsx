@@ -33,10 +33,11 @@ const Layout = ({ children }: LayoutProps) => {
         <main >
 
           <div >
-          <Nav />
-          <SessionProvider >
-          {children}
-        </SessionProvider>
+           
+            <SessionProvider>
+            <Nav />
+              {children}
+            </SessionProvider>
           </div>
         </main>
       </body>
