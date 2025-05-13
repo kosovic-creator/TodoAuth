@@ -51,13 +51,12 @@ export default function AddTodoForm() {
         body: JSON.stringify(result.data), // Use validated data
       });
       if (response.ok) {
-        // setSuccess('Napomena uspješno dodata!');
         setTitle('');
         setPriority('');
         setDetails('');
         setKorisnik('');
-        showToast('Napomena je uspešno obrisan!');
-        setTimeout(() => router.push('/todo'), 1000);
+        setToast('Napomena je uspešno obrisan!');
+        setTimeout(() => router.push('/todo'), 2000);
       } else {
         const errorData = await response.json();
         setError(errorData.message || 'Greška u dodavanju napomene.');
@@ -120,8 +119,6 @@ export default function AddTodoForm() {
         {error && <p className="text-red-500">{error}</p>}
         {success && <p className="text-green-500">{success}</p>}
       </form>
-
-      {/* Koristite Toast komponentu */}
       <Toast message={toast} />
     </>
   );

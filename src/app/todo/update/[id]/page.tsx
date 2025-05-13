@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from 'next/navigation';
-import TodoUpdateSchema  from '@/types/todo_update';
+import TodoUpdateSchema from '@/types/todo_update';
 import { Input } from "@/components/ui/input";
 import Toast from '@/components/ui/Toast';
 import { useParams } from 'next/navigation';
@@ -56,10 +56,7 @@ export default function UpdatePage() {
             fetchTodo();
         }
     }, [id]);
-    function showToast(message: string) {
-        setToast(message);
-        setTimeout(() => setToast(null), 1500); // Toast nestaje posle 2.5s
-      }
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
@@ -86,9 +83,7 @@ export default function UpdatePage() {
 
             if (response.ok) {
                 const updatedTodo = await response.json();
-                // setMessage('Izmena je uspešno dodata!');
-                showToast('Napomena je uspešno izmjenjena!');
-                console.log('Updated Todo:', updatedTodo);
+                setToast('Napomena je uspešno izmjenjena!'); // Ovo će prikazati Toast
                 setTimeout(() => router.push('/todo'), 2000);
             } else {
                 const errorData = await response.json();
@@ -100,9 +95,10 @@ export default function UpdatePage() {
             console.error(error);
         }
     };
+
     return (
         <div className=" w-full max-w-md mx-auto p-4 bg-white  rounded">
-            <h4  className="text-2xl font-bold-3 p-6 text-center ">Izmjeni</h4>
+            <h4 className="text-2xl font-bold-3 p-6 text-center ">Izmjeni</h4>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4 border-2 border-gray-100 rounded pl-4 pr-4">
                 <div className="mb-4 ">
                     <label htmlFor="title" className="block text-sm font-medium text-gray-700">Zadatak:</label>
@@ -155,12 +151,12 @@ export default function UpdatePage() {
                 <Button type="submit" className="w-full bg-black text-white py-2 rounded-md hover:bg-black-700">
                     Izmjeni
                 </Button>
-               {error && <p className="text-red-500 mt-2">{error}</p>}
+                {error && <p className="text-red-500 mt-2">{error}</p>}
                 {success && <p className="text-green-500 mt-2">{success}</p>}
             </form>
 
             <Toast message={toast} />
-</div>
-);
+        </div>
+    );
 }
 
