@@ -46,7 +46,7 @@ export default function TodoTable() {
   };
   const filteredTodos = session
     ? todos.filter(todo =>
-      todo.korisnik.toLowerCase().includes((korisnik ?? '').toLowerCase()) && todo.title.toLowerCase().includes(filter.toLowerCase())
+      todo.korisnik.toLowerCase().includes((korisnik ?? '').toLowerCase()) && todo.korisnik.toLowerCase().includes(filter.toLowerCase())
     )
     : [];
 
@@ -61,23 +61,25 @@ export default function TodoTable() {
 
   return (
     <>
-      <div className='  mx-auto p-0 w-full'>
+
         <div >
-          <div className="flex items-center relative w-full">
-            <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-              <Search className="h-4 w-4 text-gray-400" />
-            </span>
-            <Input
-              type="search"
-              placeholder="Pretraga..."
-              className="pl-10"
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-            />
+        <div className="flex flex-col items-end p-4">
+    <span>
+      <Search />
+    </span>
+    <Input
+      type="search"
+      placeholder="Pretraga..."
+      className="pl-10 mt-2"
+      value={filter}
+      onChange={(e) => setFilter(e.target.value)}
+    />
+
             <Link href="/todo/add" className='mr-0 p-3'>
               <button className="px-4 py-2 rounded bg-green-500 text-white hover:bg-green-600 transition p-4">Dodaj</button>
             </Link>
-          </div>
+  </div>
+
         </div>
         <table className="table-auto w-full border-collapse border border-gray-300 mt-4">
           <thead className="bg-gray-600 text-white font-thin">
@@ -141,7 +143,7 @@ export default function TodoTable() {
             Sledeća
           </button>
         </div>
-      </div>
+
       <footer className="flex justify-center items-center p-4 bg-gray-100">
         <a>
           Procenat završenih obaveza: {Math.round((brojKompletiranih / brojZapisa) * 100)}%

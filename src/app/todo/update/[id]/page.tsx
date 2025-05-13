@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// filepath: /todo-app/todo-app/app/update/page.tsx
+
 'use client';
 import { useEffect, useState } from "react";
 
@@ -20,7 +20,6 @@ export default function UpdatePage() {
     const router = useRouter();
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-
     const params = useParams();
     const idd = params?.id;
 
@@ -37,13 +36,11 @@ export default function UpdatePage() {
                 const response = await fetch(`/api/todo/${id}`, {
                     method: "GET",
                 });
-
                 if (!response.ok) {
                     const errorData = await response.json();
                     setMessage(errorData.message || "Greška u učitavanji podataka.");
                     return;
                 }
-
                 const data = await response.json();
                 setTitle(data.title);
                 seDetails(data.details);
@@ -62,7 +59,7 @@ export default function UpdatePage() {
     }, [id]);
     function showToast(message: string) {
         setToast(message);
-        setTimeout(() => setToast(null), 2500); // Toast nestaje posle 2.5s
+        setTimeout(() => setToast(null), 1500); // Toast nestaje posle 2.5s
       }
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -91,7 +88,7 @@ export default function UpdatePage() {
             if (response.ok) {
                 const updatedTodo = await response.json();
                 setMessage('Izmena je uspešno dodata!');
-                // showToast('Napomena je uspešno izmjenjena!');
+                showToast('Napomena je uspešno izmjenjena!');
                 console.log('Updated Todo:', updatedTodo);
                 setTimeout(() => router.push('/todo'), 2000);
             } else {
@@ -104,7 +101,6 @@ export default function UpdatePage() {
             console.error(error);
         }
     };
-
     return (
         <div className=" w-full max-w-md mx-auto p-4 bg-white  rounded">
             <h4  className="text-2xl font-bold-3 p-6 text-center ">Izmjeni</h4>
@@ -116,12 +112,11 @@ export default function UpdatePage() {
                         id="title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        // required
+                        required
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Unesite naziv napomene"
                     />
                 </div>
-
                 <div className="mb-4">
                     <label htmlFor="details" className="block text-sm font-medium text-gray-700">Detailji:</label>
                     <Input
@@ -132,22 +127,8 @@ export default function UpdatePage() {
                         // required
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Unesite detalje napomene"
-
                     />
                 </div>
-                {/* <div className="mb-4">
-                    <label htmlFor="korisnik" className="block text-sm font-medium text-gray-700">Korisnik:</label>
-                    <Input
-                        type="text"
-                        id="korisnik"
-                        value={korisnik}
-                        onChange={(e) => setKorisnik(e.target.value)}
-                        required
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Unesite Korisnika"
-
-                    />
-                </div> */}
 
                 <div className="mb-4">
                     <label htmlFor="priority" className="block text-sm font-medium text-gray-700">Prioritet:</label>
@@ -161,7 +142,6 @@ export default function UpdatePage() {
                         placeholder="Unesite prioritet (1-5)"
                     />
                 </div>
-
                 <div className="mb-4">
                     <label htmlFor="done" className="block text-sm font-medium text-gray-700">Završeno:</label>
                     <Input

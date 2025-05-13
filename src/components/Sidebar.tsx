@@ -1,0 +1,63 @@
+'use client';
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { SignOut } from "@/components/sign-out";
+
+interface SidebarProps {
+    session: { user?: { role?: string } }; // Adjust this type based on your session object structure
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ session }) => {
+    const [isVisible, setIsVisible] = useState(false);
+
+    // Close sidebar when clicking outside
+    useEffect(() => {
+        const handleOutsideClick = (event: MouseEvent) => {
+            const sidebar = document.getElementById("sidebar");
+            if (sidebar && !sidebar.contains(event.target as Node)) {
+                setIsVisible(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleOutsideClick);
+        return () => {
+            document.removeEventListener("mousedown", handleOutsideClick);
+        };
+    }, []);
+
+    return (
+        <>
+            {/* Toggle Button */}
+            <button
+                className="fixed top-4 left-4 z-50 bg-gray-700 text-white p-2 rounded"
+                onClick={() => setIsVisible(!isVisible)}
+            >
+                {isVisible ? "Close" : "Menu"}
+            </button>
+
+            {/* Sidebar */}
+            <aside
+                id="sidebar"
+                className={`fixed top-0 left-0 h-full bg-gray-800 text-white w-64 p-4 transform ${
+                    isVisible ? "translate-x-0" : "-translate-x-full"
+                } transition-transform duration-300 ease-in-out`}
+            >
+                <div className="mb-4">
+                    <h2 className="text-lg font-bold">Navigacija</h2>
+                </div>
+                <div className="flex flex-col gap-4">
+                    {session?.user?.role === "ADMIN" && (
+                        <Link href="/admin/users" className="hover:underline">
+                            Admin
+                        </Link>
+                    )}
+                    <div className="flex gap-2">
+                        <SignOut />
+                    </div>
+                </div>
+            </aside>
+        </>
+    );
+};
+
+export default Sidebar;
