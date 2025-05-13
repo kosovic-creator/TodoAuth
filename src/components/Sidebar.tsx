@@ -64,9 +64,14 @@ const Sidebar: React.FC<SidebarProps> = ({ session }) => {
                         <h1 >Todo</h1>
                     </Link>
                     {session?.user?.role === "ADMIN" && (
-                        <Link href="/admin/users" className="hover:underline">
-                            Admin
-                        </Link>
+                        <>
+                            <Link href="/admin/users" className="hover:underline">
+                                Admin
+                            </Link>
+                            <Link href="/admin/users/add" className="hover:underline">
+                                Dodaj Korisnika
+                            </Link>
+                        </>
                     )}
                     <div className="flex gap-2">
                         <SignOut />
