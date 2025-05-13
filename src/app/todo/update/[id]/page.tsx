@@ -44,7 +44,6 @@ export default function UpdatePage() {
                 const data = await response.json();
                 setTitle(data.title);
                 seDetails(data.details);
-
                 setPriority(data.priority);
                 setDone(data.done);
             } catch (err) {

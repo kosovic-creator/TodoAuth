@@ -20,7 +20,7 @@ export default function AddTodoForm() {
   const [success, setSuccess] = useState('');
   const router = useRouter();
   const { data: session, status } = useSession()
-
+  const [toast, setToast] = useState<string | null>(null);
   useEffect(() => {
     if (session?.user?.email) {
       setKorisnik(session.user.email || '');
@@ -32,7 +32,10 @@ export default function AddTodoForm() {
     setSuccess('');
     // Validate form data using Zod
     const result = TodoSchema.safeParse({ title, priority, details, korisnik });
-
+    function showToast(message: string) {
+      setToast(message);
+      setTimeout(() => setToast(null), 1500); // Toast nestaje posle 2.5s
+    }
     if (!result.success) {
       const errorMessages = result.error.errors.map((err) => err.message).join(', ');
       setError(errorMessages);
@@ -52,6 +55,7 @@ export default function AddTodoForm() {
         setPriority('');
         setDetails('');
         setKorisnik('');
+        showToast('Napomena je uspešno obrisana!');
         setTimeout(() => router.push('/todo'), 1000);
       } else {
         const errorData = await response.json();
@@ -115,6 +119,23 @@ export default function AddTodoForm() {
       {error && <p className="text-red-500">{error}</p>}
       {success && <p className="text-green-500">{success}</p>}
     </form>
+    <div
+
+  style={{
+    position: 'fixed',
+    top: 60,
+    right: 20,
+    background: 'white',
+    color: 'black',
+    padding: '12px 24px',
+    borderRadius: 6,
+    boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+    zIndex: 9999,
+  }}
+>
+  {toast}
+</div>
+
 </>
   );
 }
