@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import userSchema from '@/types/usersSchema'; // Import your Zod schema from the appropriate file
 import { Label } from "@/components/ui/label";
 import { useSession } from 'next-auth/react';
+import Toast from '@/components/ui/Toast';
 
 
 export default function AddTodoForm() {
@@ -21,6 +22,7 @@ export default function AddTodoForm() {
   const [success, setSuccess] = useState('');
   const router = useRouter();
   const { data: session, status } = useSession()
+  const [toast, setToast] = useState<string | null>(null);
 
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -53,7 +55,7 @@ export default function AddTodoForm() {
       });
 
       if (response.ok) {
-        setSuccess('Korisnik je uspješno dodat!');
+        setToast('Korisnik je uspješno dodat!');
         setName('');
         setEmail('');
         setPassword('');
@@ -136,6 +138,7 @@ export default function AddTodoForm() {
         {error && <p className="text-red-500">{error}</p>}
         {success && <p className="text-green-500">{success}</p>}
       </form>
+      <Toast message={toast} />
     </>
   );
 }

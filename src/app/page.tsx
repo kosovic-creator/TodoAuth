@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { auth } from "@/lib/auth";
 
 type Session = {
@@ -9,11 +7,6 @@ type Session = {
   };
 };
 import { redirect } from "next/navigation";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import TodoTable from "./todo/page";
-
-
-
 const Page = async () => {
   const session = (await auth()) as Session | null;
   // if (!session) {

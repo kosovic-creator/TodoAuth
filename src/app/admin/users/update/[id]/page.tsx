@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import usersSchema  from '@/types/usersSchema';
 import { Input } from "@/components/ui/input";
 import { useParams } from 'next/navigation';
+import Toast from "@/components/ui/Toast";
 export default function UpdatePage() {
     const [id, setId] = useState<string | null>(null);
     const [name, setName] = useState('');
@@ -87,6 +88,7 @@ export default function UpdatePage() {
 
             if (response.ok) {
                 const updatedTodo = await response.json();
+                setToast('Izmjena je uspešno izmjenjena!');
                 setMessage('Izmena je uspešno dodata!');
                 setTimeout(() => router.push('/admin/users'), 2000);
             } else {
@@ -162,23 +164,9 @@ export default function UpdatePage() {
                {error && <p className="text-red-500 mt-2">{error}</p>}
                 {success && <p className="text-green-500 mt-2">{success}</p>}
             </form>
-    {toast && (
-<div
-  style={{
-    position: 'fixed',
-    top: 60,
-    right: 20,
-    background: 'white',
-    color: 'black',
-    padding: '12px 24px',
-    borderRadius: 6,
-    boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-    zIndex: 9999,
-  }}
->
-  {toast}
-</div>
-    )}
+
+
+            <Toast message={toast} />
 </div>
 );
 }

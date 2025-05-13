@@ -119,6 +119,7 @@ export default function AddTodoForm() {
         {error && <p className="text-red-500">{error}</p>}
         {success && <p className="text-green-500">{success}</p>}
       </form>
+
       <Toast message={toast} />
     </>
   );
