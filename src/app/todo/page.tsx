@@ -25,7 +25,7 @@ export default function TodoTable() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 const korisnik = (session?.user?.email ?? '').split('@')[0]; // Extract the username from the email
-  
+
   useEffect(() => {
     startTransition(() => {
       fetch('/api/todo')
@@ -53,11 +53,12 @@ const korisnik = (session?.user?.email ?? '').split('@')[0]; // Extract the user
 
 const filteredTodos = session
   ? todos.filter(todo =>
-      todo.korisnik.toLowerCase().includes((korisnik ?? '').toLowerCase())
+      todo.korisnik.toLowerCase().includes((korisnik ?? '').toLowerCase()) && todo.title.toLowerCase().includes(filter.toLowerCase())
     )
-  : todos.filter(todo =>
-      todo.title.toLowerCase().includes(filter.toLowerCase())
-    );
+  : [];
+  // : todos.filter(todo =>
+  //     todo.title.toLowerCase().includes(filter.toLowerCase())
+  //   );
 
 
   // Pagination logic
