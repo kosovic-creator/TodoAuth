@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 
 const Page = async () => {
   const session = await auth();
-  if (session) redirect("/todo");
+  if (session) redirect("/");
 
 
   return (

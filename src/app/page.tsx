@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import ReloadWindows from "@/components/Reload";
 import { auth } from "@/lib/auth";
 
 type Session = {
@@ -25,7 +26,8 @@ const Page = async () => {
 
   return (
     <>
-      {/* <TodoTable /> */}
+    <ReloadWindows />
+
     </>
   );
 };

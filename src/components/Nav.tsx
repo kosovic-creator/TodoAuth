@@ -15,7 +15,7 @@ const Nav = () => {
 
     return (
         <header>
-            <nav className="flex justify-between items-center w-full px-10 py-4 bg-black text-white">
+            <nav className="flex justify-between items-center w-full px-10 py-8 bg-black text-white">
                 {/* <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-white focus:outline-none">
                     ☰
                 </button> */}
