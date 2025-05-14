@@ -21,13 +21,18 @@ export default function TodoTable() {
   const itemsPerPage = 5;
   const korisnik = (session?.user?.email ?? '').split('@')[0]; // Extract the username from the email
 
-  useEffect(() => {
+const { status } = useSession();
+
+useEffect(() => {
+  if (status === "authenticated") {
     startTransition(() => {
       fetch('/api/todo')
         .then(res => res.json())
         .then(setTodos);
     });
-  }, []);
+  }
+}, [status]);
+
 
   function showToast(message: string) {
     setToast(message);
