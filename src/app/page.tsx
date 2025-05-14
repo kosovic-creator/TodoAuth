@@ -9,6 +9,7 @@ type Session = {
   };
 };
 import { redirect } from "next/navigation";
+import Link from "next/link";
 const Page = async () => {
   const session = (await auth()) as Session | null;
   // if (!session) {
@@ -26,8 +27,10 @@ const Page = async () => {
 
   return (
     <>
-    <ReloadWindows />
-
+      <div>Korisnik je {session?.user?.email ?? "Unknown"}</div>
+      <div className="text-center mt-8">
+        <ReloadWindows />
+      </div>
     </>
   );
 };

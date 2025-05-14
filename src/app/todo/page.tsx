@@ -46,7 +46,7 @@ useEffect(() => {
       <div className="text-center mt-8">
          <Button onClick={() => window.location.reload()}>Reload</Button>
         Morate biti prijavljeni da biste vidjeli ovu stranicu.
-
+korisnik je : {korisnik}
       </div>
     );
 
