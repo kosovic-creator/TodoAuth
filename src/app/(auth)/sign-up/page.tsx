@@ -38,9 +38,7 @@ const Page = async () => {
           }
         }}
       >
-        <Input name="name"
-        placeholder="Name"
-        required />
+      
         <Input
           name="email"
           placeholder="Email"
