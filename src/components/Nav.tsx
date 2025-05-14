@@ -29,9 +29,10 @@ const Nav = () => {
                         </>
                     ) : (
                         // <p className=" p-1">Niste prijavljeni</p>
-                        < Link href="/sign-in">
-                                Prijavi se
-                        </Link>
+                        // < Link href="/sign-in">
+                        //         Prijavi se
+                        // </Link>
+                        null
                     )}
                 </div>
             </nav>
