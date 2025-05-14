@@ -47,6 +47,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
       );
+     
       // redirect("/todo");
         if (!user) {
           throw new Error("Invalid credentials.");

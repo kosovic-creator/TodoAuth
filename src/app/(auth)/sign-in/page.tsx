@@ -41,20 +41,21 @@ const Page = async () => {
           });
         }}
       >
-        <Input
+         <Input
           name="email"
           placeholder="Email"
-          type="email"
+          type="text"
           required
           autoComplete="email"
         />
         <Input
           name="password"
           placeholder="Password"
-          type="password"
+          type="text"
           required
           autoComplete="current-password"
         />
+
 
           <Button className="w-full bg-black text-white" type="submit" >
             Prijavi se

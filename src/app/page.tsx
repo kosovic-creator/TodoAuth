@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { auth } from "@/lib/auth";
 
 type Session = {
@@ -16,11 +17,11 @@ const Page = async () => {
   // if (session?.user?.role === "ADMIN") {
   //   console.log("User is an admin");
   // }
-  if (session) {
-    redirect("/todo");
-  } else {
-    redirect("/sign-in");
-  }
+  // if (session) {
+  //   redirect("/todo");
+  // } else {
+  //   redirect("/sign-in");
+  // }
 
   return (
     <>

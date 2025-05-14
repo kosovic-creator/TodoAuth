@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
 'use client';
 
 import { useEffect, useState, useTransition } from 'react';
@@ -9,34 +8,62 @@ import { Input } from '@/components/ui/input';
 import LoadingDots from '@/components/loading-dots';
 import { useSession } from "next-auth/react";
 import { Todo } from '@/types/todo';
+import NextError from 'next/error';
+import { Button } from '@/components/ui/button';
 
 export default function TodoTable() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [toast, setToast] = useState<string | null>(null);
   const [filter, setFilter] = useState('');
   const [isPending, startTransition] = useTransition();
-  const { data: session } = useSession();
-  // Pagination state
+  const { data: session, status } = useSession();
   const [currentPage, setCurrentPage] = useState(1);
+  const [error, setError] = useState<string | null>(null);
   const itemsPerPage = 5;
-  const korisnik = (session?.user?.email ?? '').split('@')[0]; // Extract the username from the email
-
-const { status } = useSession();
+  const korisnik = (session?.user?.email ?? '').split('@')[0];
 
 useEffect(() => {
-  if (status === "authenticated") {
-    startTransition(() => {
-      fetch('/api/todo')
-        .then(res => res.json())
-        .then(setTodos);
-    });
+     if (status === "authenticated" && session) {
+       startTransition(() => {
+         fetch('/api/todo')
+           .then(res => {
+             if (!res.ok) throw new Error("Greška prilikom učitavanja zadataka");
+             return res.json();
+           })
+           .then(setTodos)
+           .catch(setError);
+       });
+     }
+   }, [status, session]);
+
+  // Loader dok traje učitavanje sesije
+  if (status === "loading") {
+    return <LoadingDots />;
   }
-}, [status]);
+  // Ako nije ulogovan, možeš preusmjeriti ili prikazati poruku
+  if (status === "unauthenticated") {
+    return (
+      <div className="text-center mt-8">
+         <Button onFocus={() => window.location.reload()}>Reload</Button>
+        Morate biti prijavljeni da biste vidjeli ovu stranicu.
+
+      </div>
+    );
 
 
+  }
+
+
+  if (error) {
+    return (
+      <div className="text-center mt-8 text-red-500">
+        {"Došlo je do greške prilikom učitavanja zadataka."}
+      </div>
+    );
+  }
   function showToast(message: string) {
     setToast(message);
-    setTimeout(() => setToast(null), 2500); // Toast disappears after 2.5s
+    setTimeout(() => setToast(null), 2500);
   }
 
   const updateTodo = async (id: string, data: Partial<Todo>) => {
@@ -49,10 +76,11 @@ useEffect(() => {
     setTodos(todos.map(t => (t.id === Number(id) ? updated : t)));
     showToast('Napomena je uspešno izmjenjena!');
   };
+
   const filteredTodos = session
     ? todos.filter(todo =>
-      todo.korisnik.includes((korisnik ?? '')) && todo.title.includes(filter)
-    )
+        todo.korisnik.includes(korisnik) && todo.title.includes(filter)
+      )
     : [];
 
   // Pagination logic
@@ -66,6 +94,7 @@ useEffect(() => {
 
   return (
     <>
+
       <div className="flex justify-end items-center p-4">
         <div className="relative w-64">
           <span className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -84,16 +113,11 @@ useEffect(() => {
         </Link>
       </div>
 
-
-
-
-
       <table className="table-auto w-full border-collapse border border-gray-300 mt-4">
         <thead className="bg-gray-600 text-white font-thin">
           <tr className='border-b border-gray-300 text-white'>
             <th className='p-3 text-center'>Naslov</th>
             <th className='p-3 text-center'>Detalji</th>
-
             <th className="p-3 text-center">Prioritet</th>
             <th className="p-3 text-left">Završeno</th>
             <th></th>
@@ -109,7 +133,6 @@ useEffect(() => {
               <tr key={todo.id}>
                 <td className='p-2 text-center'>{todo.title}</td>
                 <td className='p-2 text-center'>{todo.details}</td>
-
                 <td className='text-center'>{todo.priority}</td>
                 <td>
                   <input
@@ -120,7 +143,6 @@ useEffect(() => {
                   />
                 </td>
                 <td>
-
                   <div className="flex gap-2 flex-row-reverse w-full">
                     <Link href={`/todo/${todo.id}`} >
                       <button className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 transition">Pregled</button>
@@ -153,11 +175,9 @@ useEffect(() => {
 
       <footer className="flex justify-center items-center p-4 bg-gray-100">
         <a>
-          Procenat završenih obaveza: {Math.round((brojKompletiranih / brojZapisa) * 100)}%
+          Procenat završenih obaveza: {procenatKompletiranih}%
         </a>
       </footer>
-
     </>
   );
 }
-
