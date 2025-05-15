@@ -38,7 +38,8 @@ const Page = () => {
 
   return (
     <>
-      <div>Korisnik je {session.user?.email ?? "Unknown"}</div>
+    
+      <div>Korisnik je (user)</div>
       <div className="text-center mt-8">
         <ReloadWindows />
       </div>
