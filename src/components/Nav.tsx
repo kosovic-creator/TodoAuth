@@ -2,40 +2,37 @@
 'use client';
 
 import Link from "next/link";
-import { HomeIcon } from "lucide-react";
-import { SignOut } from "@/components/sign-out";
-import Sidebar from "@/components/Sidebar";
-import { useSession } from "next-auth/react"; // OVO JE BITNO
-
+import { useSession } from "next-auth/react"; // Koristi useSession za autentifikaciju
 import { useState } from "react";
+import Sidebar from "@/components/Sidebar";
 
 const Nav = () => {
-    const { data: session, status } = useSession(); // OVO JE BITNO
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const { data: session, status } = useSession(); // Dohvata sesiju
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State za sidebar
 
     return (
         <header>
             <nav className="flex justify-between items-center w-full px-10 py-8 bg-black text-white">
-                {/* <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-white focus:outline-none">
-                    ☰
-                </button> */}
-                {session ? <Link href="/todo"></Link> : null}
+                {/* Link ka /todo ako je korisnik prijavljen */}
+                {session ? <Link href="/todo">Početna</Link> : null}
                 <div className="flex gap-10">
                     {session ? (
                         <>
-                            <p className=" p-1">korisnik: {session.user?.email ?? "Unknown"}</p>
+                            {/* Prikazuje email korisnika */}
+                            <p className="p-1">Korisnik: {session.user?.email ?? "Unknown"}</p>
+                            {/* Sidebar komponenta */}
                             <Sidebar open={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} session={session} />
-
                         </>
                     ) : (
-                        // <p className=" p-1">Niste prijavljeni</p>
-                        // < Link href="/sign-in">
-                        //         Prijavi se
-                        // </Link>
-                        null
+                            // Ako korisnik nije prijavljen, prikaži opciju za prijavu
+                            // <Link href="/sign-in" className="p-1">
+                            //     Prijavi se
+                            // </Link>
+                            null
                     )}
                 </div>
             </nav>
+            {/* Sidebar komponenta */}
             {session && <Sidebar open={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} session={session} />}
         </header>
     );
