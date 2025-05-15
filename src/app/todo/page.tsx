@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react";
 import { Todo } from '@/types/todo';
 import NextError from 'next/error';
 import { Button } from '@/components/ui/button';
-import { useUser } from "../context/UserContext";
+
 
 export default function TodoTable() {
   const [todos, setTodos] = useState<Todo[]>([]);

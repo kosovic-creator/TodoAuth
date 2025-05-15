@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
 import { ReactNode } from "react";
 import Nav from "@/components/Nav";
 import { SessionProvider } from "next-auth/react";
-import { UserProvider } from "./context/UserContext";
+import { GlobalProvider } from "@/app/context/GlobalContext";
+ // Adjust the path as needed
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -33,12 +35,12 @@ const Layout = ({ children }: LayoutProps) => {
         <main >
 
           <div >
-           <UserProvider>
+           <GlobalProvider>
             <SessionProvider>
             <Nav />
               {children}
             </SessionProvider>
-           </UserProvider>
+           </GlobalProvider>
           </div>
         </main>
       </body>
